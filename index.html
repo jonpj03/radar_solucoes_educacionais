@@ -39,13 +39,49 @@ h1{font-size:clamp(38px,5.8vw,76px);letter-spacing:-.052em;line-height:.98;margi
 .sectionTitle{margin:54px 0 18px}.sectionTitle h2{font-size:30px;margin:0 0 8px}.sectionTitle p{margin:0;color:var(--muted)}
 .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:60px}.step{border:1px solid var(--line);background:#11131a;border-radius:18px;padding:18px}.step small{color:#ff8fba}.step b{display:block;margin:8px 0 5px}.step p{font-size:12px;color:var(--muted);line-height:1.45;margin:0}
 footer{border-top:1px solid var(--line);padding:25px 0 35px;color:var(--muted);font-size:12px;margin-top:55px}
+
+
+
+.themebox{position:relative}
+.themebtn{border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);border-radius:11px;padding:9px 12px;cursor:pointer;font-size:12px}
+.themepanel{display:none;position:absolute;right:0;top:44px;width:210px;padding:10px;background:var(--panel2);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}
+.themepanel.open{display:block}
+.themeopt{width:100%;display:flex;align-items:center;gap:9px;border:0;background:transparent;color:var(--text);padding:10px 11px;border-radius:10px;cursor:pointer;text-align:left;font-size:12px}
+.themeopt:hover,.themeopt.active{background:rgba(213,24,98,.13);color:var(--text)}
+html[data-theme="light"]{--bg:#f4f5f8;--panel:#fff;--panel2:#fff;--text:#20232a;--muted:#69707c;--line:rgba(25,30,40,.10);--shadow:0 20px 60px rgba(20,25,35,.12)}
+html[data-theme="light"] body{background:radial-gradient(circle at 18% 0%,rgba(213,24,98,.10),transparent 28%),radial-gradient(circle at 90% 18%,rgba(117,89,255,.07),transparent 24%),var(--bg)}
+html[data-theme="light"] body:before{background-image:linear-gradient(rgba(20,25,35,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,25,35,.035) 1px,transparent 1px)}
+html[data-theme="light"] header{background:rgba(244,245,248,.82)}
+html[data-theme="light"] .lead{color:#565d68}
+html[data-theme="light"] .heroAside{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.78))}
+html[data-theme="light"] .metric,html[data-theme="light"] .card{background:rgba(255,255,255,.86)}
+html[data-theme="light"] .card.featured{background:linear-gradient(135deg,rgba(213,24,98,.09),rgba(255,255,255,.92))}
+html[data-theme="light"] .tab,html[data-theme="light"] .search,html[data-theme="light"] .step{background:#fff;color:#343943}
+html[data-theme="light"] .tab.active{background:var(--brand);color:#fff}
+html[data-theme="light"] .cat{color:#555d69}
+html[data-theme="light"] .impact p{color:#303640}
+html[data-theme="light"] .tag{color:#555d69;background:rgba(20,25,35,.055)}
+html[data-theme="light"] .themebtn{background:#fff}
+
 @media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:46px}.metrics{grid-template-columns:1fr}.card,.card.featured{grid-column:span 12;display:block}.visual{min-height:160px}.toolbar{align-items:stretch;flex-direction:column}.search{min-width:0;width:100%}.timeline{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header><div class="wrap nav">
   <div class="brand"><div class="logo">S.E</div><div><b>Soluções Educacionais</b><span>Radar de iniciativas</span></div></div>
-  <div class="navright"><span class="pulse"></span><span class="navstatus" id="updated">Atualizando...</span></div>
+  <div class="navright">
+    <span class="pulse"></span><span class="navstatus" id="updated">Atualizando...</span>
+    <div class="themebox">
+      <button class="themebtn" id="themeBtn" type="button">◐ Tema</button>
+      <div class="themepanel" id="themePanel">
+        <button class="themeopt" data-theme-choice="system">💻 Sistema / Automático</button>
+        <button class="themeopt" data-theme-choice="light">☀️ Claro</button>
+        <button class="themeopt" data-theme-choice="dark">🌙 Escuro</button>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
 </div></header>
 <main class="wrap">
 <section class="hero">
@@ -119,6 +155,34 @@ function render(){
    ${x.destaque?`<div class="visual"><div class="orb">${esc(x.icone||'✦')}</div></div>`:''}
   </article>`).join('');
 }
+
+
+
+const mediaDark=window.matchMedia('(prefers-color-scheme: dark)');
+let themeChoice=localStorage.getItem('radar.displayTheme')||'system';
+
+function resolvedTheme(){
+  if(themeChoice==='system') return mediaDark.matches?'dark':'light';
+  return themeChoice;
+}
+function applyDisplayTheme(){
+  document.documentElement.dataset.theme=resolvedTheme();
+  document.querySelectorAll('[data-theme-choice]').forEach(b=>b.classList.toggle('active',b.dataset.themeChoice===themeChoice));
+  themeBtn.textContent=themeChoice==='system'?'💻 Automático':themeChoice==='light'?'☀️ Claro':'🌙 Escuro';
+}
+document.querySelectorAll('[data-theme-choice]').forEach(b=>{
+  b.onclick=()=>{
+    themeChoice=b.dataset.themeChoice;
+    localStorage.setItem('radar.displayTheme',themeChoice);
+    applyDisplayTheme();
+    themePanel.classList.remove('open');
+  };
+});
+themeBtn.onclick=(e)=>{e.stopPropagation();themePanel.classList.toggle('open')};
+document.addEventListener('click',e=>{if(!themePanel.contains(e.target)&&e.target!==themeBtn)themePanel.classList.remove('open')});
+mediaDark.addEventListener?.('change',()=>{if(themeChoice==='system')applyDisplayTheme()});
+applyDisplayTheme();
+
 load();
 </script>
 </body>

@@ -25,3 +25,14 @@ Hospede a pasta no GitHub Pages. A página sempre lê `radar.json` sem cache par
 ## Comunicação recomendada
 Evite cronogramas operacionais, nomes individuais, riscos internos, dependências técnicas e detalhes de execução.
 Prefira: o que é, por que importa, impacto esperado e status macro.
+
+
+## Tema da interface
+O magenta S.E permanece fixo como cor institucional.
+
+Cada visitante pode escolher no canto superior direito:
+- Sistema / Automático: acompanha o modo claro ou escuro do Windows/navegador e muda automaticamente.
+- Claro: força a interface clara.
+- Escuro: força a interface escura.
+
+A preferência fica salva apenas no navegador da própria pessoa.

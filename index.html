@@ -215,6 +215,7 @@ let ITEMS=[];
 let current=0;
 let timer=null;
 const INTERVAL=9000;
+const DATA_REFRESH_INTERVAL=60000; // relê o radar.json a cada 60 segundos
 const labels={entregue:'Entregue',em_andamento:'Em andamento',exploracao:'Em exploração',planejado:'Planejado'};
 const esc=(s='')=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
@@ -284,19 +285,44 @@ function restartTimer(){
   clearInterval(timer);
   timer=setInterval(()=>show(current+1),INTERVAL);
 }
-async function load(){
+async function load({preserveCurrent=false}={}){
   try{
+    const currentId = preserveCurrent && ITEMS[current] ? ITEMS[current].id : null;
     const r=await fetch('./radar.json?ts='+Date.now(),{cache:'no-store'});
-    DATA=await r.json();
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const fresh=await r.json();
+
+    DATA=fresh;
     ITEMS=visibleItems();
     updated.textContent='Atualizado em '+(DATA.ultimaAtualizacao||'—');
+
     renderMetrics();
-    show(0);
+
+    if(!ITEMS.length){
+      heroTitle.textContent='Sem novidades publicadas';
+      heroSummary.textContent='Novas iniciativas aparecerão aqui automaticamente quando forem liberadas.';
+      heroImpact.textContent='';
+      heroTags.innerHTML='';
+      counter.textContent='0 / 0';
+      feedList.innerHTML='';
+      clearInterval(timer);
+      return;
+    }
+
+    let nextIndex=0;
+    if(currentId){
+      const found=ITEMS.findIndex(x=>x.id===currentId);
+      if(found>=0) nextIndex=found;
+    }
+
+    show(nextIndex);
     restartTimer();
   }catch(e){
-    heroTitle.textContent='Radar indisponível';
-    heroSummary.textContent='Não foi possível carregar as novidades.';
-    heroImpact.textContent='Tente novamente em alguns instantes.';
+    if(!ITEMS.length){
+      heroTitle.textContent='Radar indisponível';
+      heroSummary.textContent='Não foi possível carregar as novidades.';
+      heroImpact.textContent='Tente novamente em alguns instantes.';
+    }
     updated.textContent='Base indisponível';
   }
 }
@@ -317,6 +343,7 @@ document.addEventListener('click',e=>{if(!themePanel.contains(e.target)&&e.targe
 mediaDark.addEventListener?.('change',()=>{if(themeChoice==='system')applyDisplayTheme()});
 applyDisplayTheme();
 load();
+setInterval(()=>load({preserveCurrent:true}),DATA_REFRESH_INTERVAL);
 </script>
 </body>
 </html>

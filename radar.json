@@ -47,7 +47,7 @@
       "impacto": "Pode apoiar o acompanhamento operacional e reduzir consultas manuais.",
       "status": "em_andamento",
       "publicarEm": "2026-09-20",
-      "destaque": true,
+      "destaque": false,
       "icone": "◎",
       "tags": [
         "Avaliações",
@@ -63,7 +63,7 @@
       "impacto": "Pode apoiar decisões futuras sobre navegação, conteúdo e experiência do estudante.",
       "status": "exploracao",
       "publicarEm": "2026-10-05",
-      "destaque": true,
+      "destaque": false,
       "icone": "⌁",
       "tags": [
         "Engajamento",

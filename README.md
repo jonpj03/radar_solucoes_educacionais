@@ -85,3 +85,23 @@ A lateral agora inclui indicadores macro calculados automaticamente a partir do 
 - distribuição entre entregue, andamento e exploração.
 
 Não é necessário preencher esses indicadores manualmente. Eles são recalculados sempre que o `radar.json` é carregado.
+
+
+## Atualização automática sem F5
+A página relê o `radar.json` automaticamente a cada 60 segundos.
+
+Isso significa que, se uma iniciativa estiver com:
+
+```json
+"publicarEm": "2026-10-05"
+```
+
+e o Radar permanecer aberto continuamente em uma TV ou monitor, a iniciativa passa a aparecer sozinha após a data ser atingida, sem necessidade de atualizar manualmente a página.
+
+O intervalo pode ser alterado no `index.html` pela constante:
+
+```js
+const DATA_REFRESH_INTERVAL=60000;
+```
+
+`60000` = 60 segundos.

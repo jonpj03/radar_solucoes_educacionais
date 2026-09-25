@@ -1,38 +1,87 @@
-# Radar de Soluções Educacionais
+# Radar de Soluções Educacionais — Tela Única
 
-Vitrine institucional para comunicar iniciativas da equipe de Soluções Educacionais sem expor detalhes operacionais.
+Esta versão foi pensada para ficar aberta em uma única tela, TV, monitor ou navegador.
 
-## Como atualizar
-Edite somente `radar.json`.
+## O que o público vê
+- uma iniciativa principal em destaque;
+- resumo simples;
+- impacto para outras áreas;
+- status macro;
+- tags;
+- lista lateral das principais iniciativas;
+- rotação automática das notícias;
+- indicadores gerais;
+- tema Automático, Claro ou Escuro.
 
-Campos principais:
-- `titulo`
-- `categoria`
-- `resumo`
-- `impacto`
-- `status`: `entregue`, `em_andamento`, `exploracao` ou `planejado`
-- `publicarEm`: data em `AAAA-MM-DD`
-- `destaque`: `true` ou `false`
-- `tags`
+Nenhuma instrução de manutenção aparece no `index.html`.
 
-## Automação por data
-A página só exibe uma iniciativa quando `publicarEm` for igual ou anterior à data atual.
-Assim, você pode preparar divulgações futuras antecipadamente.
+## Como a equipe atualiza
+Edite apenas o arquivo `radar.json`.
 
-## Publicação
-Hospede a pasta no GitHub Pages. A página sempre lê `radar.json` sem cache para refletir atualizações.
+Cada item usa esta estrutura:
 
-## Comunicação recomendada
-Evite cronogramas operacionais, nomes individuais, riscos internos, dependências técnicas e detalhes de execução.
-Prefira: o que é, por que importa, impacto esperado e status macro.
+```json
+{
+  "id": "nome-unico",
+  "titulo": "Nome da iniciativa",
+  "categoria": "Categoria macro",
+  "resumo": "Explique em uma frase o que está sendo criado.",
+  "impacto": "Explique em uma frase por que isso importa para outras áreas.",
+  "status": "em_andamento",
+  "publicarEm": "2026-09-25",
+  "destaque": true,
+  "icone": "✦",
+  "tags": ["Tecnologia", "Experiência", "Dados"]
+}
+```
+
+### Status aceitos
+- `entregue`
+- `em_andamento`
+- `exploracao`
+- `planejado`
+
+### Publicação automática
+O campo `publicarEm` controla quando a notícia aparece.
+Uma iniciativa com data futura só entra no Radar quando essa data chegar.
+
+### Ordem das notícias
+Primeiro aparecem os itens com `destaque: true`.
+Depois, os demais são organizados pela data `publicarEm`, do mais recente para o mais antigo.
+
+### Tempo de rotação
+No `index.html`, a constante:
+
+```js
+const INTERVAL=9000;
+```
+
+define o tempo de cada notícia em milissegundos.
+`9000` = 9 segundos.
+
+## Recomendações de conteúdo
+Para evitar ruído entre áreas, publique apenas:
+- o que é;
+- por que importa;
+- impacto esperado;
+- status macro.
+
+Evite:
+- nomes de responsáveis;
+- tarefas operacionais;
+- riscos internos;
+- dependências técnicas;
+- datas de execução não confirmadas;
+- detalhes de bastidores.
 
 
-## Tema da interface
-O magenta S.E permanece fixo como cor institucional.
+## Mini dashboards
+A lateral agora inclui indicadores macro calculados automaticamente a partir do `radar.json`:
+- iniciativas visíveis;
+- entregues;
+- em movimento;
+- quantidade de áreas/categorias;
+- percentual entregue;
+- distribuição entre entregue, andamento e exploração.
 
-Cada visitante pode escolher no canto superior direito:
-- Sistema / Automático: acompanha o modo claro ou escuro do Windows/navegador e muda automaticamente.
-- Claro: força a interface clara.
-- Escuro: força a interface escura.
-
-A preferência fica salva apenas no navegador da própria pessoa.
+Não é necessário preencher esses indicadores manualmente. Eles são recalculados sempre que o `radar.json` é carregado.

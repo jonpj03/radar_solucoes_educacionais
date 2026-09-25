@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radar de Soluções Educacionais</title>
+<style>
+:root{--bg:#0c0d11;--panel:#12141b;--text:#f6f7fb;--muted:#a7adbb;--line:rgba(255,255,255,.08);--brand:#d51862;--ok:#69d3a4;--warn:#ffd36b;--shadow:0 20px 60px rgba(0,0,0,.30)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 18% 0%,rgba(213,24,98,.15),transparent 28%),radial-gradient(circle at 90% 18%,rgba(117,89,255,.12),transparent 24%),var(--bg)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 70%)}
+.wrap{max-width:1320px;margin:auto;padding:0 28px}
+header{position:sticky;top:0;z-index:10;background:rgba(12,13,17,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{height:74px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--brand),#8e1749);display:grid;place-items:center;font-weight:850;box-shadow:0 8px 30px rgba(213,24,98,.28)}
+.brand b{font-size:15px}.brand span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.navright{display:flex;align-items:center;gap:10px}.pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 7px rgba(105,211,164,.08)}.navstatus{font-size:12px;color:var(--muted)}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:end}
+.kicker{display:inline-flex;gap:8px;align-items:center;padding:7px 10px;border:1px solid rgba(213,24,98,.32);background:rgba(213,24,98,.08);color:#ff9bc1;border-radius:999px;font-size:12px;font-weight:700}
+h1{font-size:clamp(38px,5.8vw,76px);letter-spacing:-.052em;line-height:.98;margin:20px 0 22px;max-width:930px}
+.grad{background:linear-gradient(90deg,#fff 10%,#ff8fba 60%,#9b8cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:18px;line-height:1.6;color:#c3c7d1;max-width:760px}
+.heroAside{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.heroAside .eyebrow{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.heroAside p{font-size:20px;line-height:1.45;margin:10px 0 0}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 50px}.metric{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:18px;padding:18px}
+.metric strong{font-size:28px;display:block}.metric span{font-size:12px;color:var(--muted)}
+.toolbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:20px}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#11131a;color:#c9ccd4;border-radius:999px;padding:9px 13px;font-size:12px;cursor:pointer}.tab.active{background:var(--brand);border-color:var(--brand);color:#fff}
+.search{min-width:290px;border:1px solid var(--line);background:#11131a;color:white;border-radius:12px;padding:11px 13px;outline:none}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{grid-column:span 6;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));border-radius:22px;padding:22px;position:relative;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.15);box-shadow:var(--shadow)}.card.featured{grid-column:span 12;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;background:linear-gradient(135deg,rgba(213,24,98,.13),rgba(255,255,255,.035))}
+.card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-80px;top:-80px;background:radial-gradient(circle,rgba(213,24,98,.16),transparent 70%);pointer-events:none}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center}.cat{font-size:11px;color:#d3d6de;text-transform:uppercase;letter-spacing:.11em}.status{font-size:11px;padding:6px 8px;border-radius:999px;border:1px solid var(--line)}
+.status.entregue{color:#9be8c5;background:rgba(105,211,164,.08)}.status.em_andamento{color:#ffe094;background:rgba(255,211,107,.08)}.status.exploracao{color:#c9bfff;background:rgba(155,140,255,.08)}
+.card h3{font-size:25px;letter-spacing:-.025em;margin:16px 0 9px}.card p{color:var(--muted);line-height:1.55;font-size:14px}
+.impact{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.impact b{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#d6d8df}.impact p{margin:7px 0 0;color:#e7e9ef}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}.tag{font-size:11px;color:#b9bdc8;background:rgba(255,255,255,.045);padding:6px 8px;border-radius:999px}
+.visual{display:flex;align-items:center;justify-content:center;min-height:190px}.orb{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;font-size:54px;background:radial-gradient(circle at 30% 28%,#ff80b3,var(--brand) 38%,#54142f 70%);box-shadow:0 20px 70px rgba(213,24,98,.30),inset 0 0 40px rgba(255,255,255,.12);animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-7px) rotate(2deg)}}.empty{grid-column:1/-1;text-align:center;padding:55px 20px;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}
+.sectionTitle{margin:54px 0 18px}.sectionTitle h2{font-size:30px;margin:0 0 8px}.sectionTitle p{margin:0;color:var(--muted)}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:60px}.step{border:1px solid var(--line);background:#11131a;border-radius:18px;padding:18px}.step small{color:#ff8fba}.step b{display:block;margin:8px 0 5px}.step p{font-size:12px;color:var(--muted);line-height:1.45;margin:0}
+footer{border-top:1px solid var(--line);padding:25px 0 35px;color:var(--muted);font-size:12px;margin-top:55px}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:46px}.metrics{grid-template-columns:1fr}.card,.card.featured{grid-column:span 12;display:block}.visual{min-height:160px}.toolbar{align-items:stretch;flex-direction:column}.search{min-width:0;width:100%}.timeline{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <div class="brand"><div class="logo">S.E</div><div><b>Soluções Educacionais</b><span>Radar de iniciativas</span></div></div>
+  <div class="navright"><span class="pulse"></span><span class="navstatus" id="updated">Atualizando...</span></div>
+</div></header>
+<main class="wrap">
+<section class="hero">
+  <div><span class="kicker">✦ O que estamos construindo</span><h1 id="title">Radar de <span class="grad">Soluções Educacionais</span></h1><p class="lead" id="subtitle"></p></div>
+  <aside class="heroAside"><div class="eyebrow">Por que este radar existe</div><p id="message"></p></aside>
+</section>
+<section class="metrics">
+  <div class="metric"><strong id="m1">0</strong><span>iniciativas visíveis</span></div>
+  <div class="metric"><strong id="m2">0</strong><span>já entregues</span></div>
+  <div class="metric"><strong id="m3">0</strong><span>em movimento</span></div>
+</section>
+<div class="toolbar">
+  <div class="tabs" id="tabs"></div>
+  <input class="search" id="q" placeholder="Buscar iniciativa ou impacto..." oninput="render()">
+</div>
+<section id="grid" class="grid"><div class="empty">Carregando radar...</div></section>
+<section class="sectionTitle"><h2>Como esta vitrine se atualiza</h2><p>O foco é comunicação executiva: somente o que outras áreas precisam saber.</p></section>
+<section class="timeline">
+  <div class="step"><small>01</small><b>Você registra</b><p>Inclui ou altera uma iniciativa no arquivo radar.json.</p></div>
+  <div class="step"><small>02</small><b>O radar organiza</b><p>Datas, status, destaques e ordenação são tratados automaticamente.</p></div>
+  <div class="step"><small>03</small><b>Todos visualizam</b><p>A mesma página publicada no GitHub Pages passa a refletir a atualização.</p></div>
+</section>
+</main>
+<footer><div class="wrap">Soluções Educacionais • visão institucional de iniciativas e impactos</div></footer>
+<script>
+let DATA={iniciativas:[]}, active='Todos';
+const esc=(s='')=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const labels={entregue:'Entregue',em_andamento:'Em andamento',exploracao:'Em exploração',planejado:'Planejado'};
+async function load(){
+ try{
+  const r=await fetch('./radar.json?ts='+Date.now(),{cache:'no-store'});
+  DATA=await r.json();
+  title.innerHTML=(DATA.configuracao?.titulo||'Radar de Soluções Educacionais').replace('Soluções Educacionais','<span class="grad">Soluções Educacionais</span>');
+  subtitle.textContent=DATA.configuracao?.subtitulo||'';
+  message.textContent=DATA.configuracao?.mensagem||'';
+  updated.textContent='Atualizado em '+(DATA.ultimaAtualizacao||'—');
+  buildTabs(); render();
+ }catch(e){
+  grid.innerHTML='<div class="empty">Não foi possível carregar radar.json. Publique a pasta no GitHub Pages ou use um servidor local.</div>';
+  updated.textContent='Base indisponível';
+ }
+}
+function visibleItems(){
+ const today=new Date().toISOString().slice(0,10);
+ return (DATA.iniciativas||[]).filter(x=>!x.publicarEm||x.publicarEm<=today);
+}
+function buildTabs(){
+ const tabs=['Todos','Destaques','Entregues','Em andamento','Em exploração'];
+ document.getElementById('tabs').innerHTML=tabs.map(t=>`<button class="tab ${active===t?'active':''}" data-tab="${t}">${t}</button>`).join('');
+ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{active=b.dataset.tab;buildTabs();render()});
+}
+function render(){
+ const base=visibleItems();
+ m1.textContent=base.length;
+ m2.textContent=base.filter(x=>x.status==='entregue').length;
+ m3.textContent=base.filter(x=>x.status==='em_andamento'||x.status==='exploracao').length;
+ const q=document.getElementById('q').value.trim().toLowerCase();
+ let list=base.filter(x=>{
+   const ok=active==='Todos'||(active==='Destaques'&&x.destaque)||(active==='Entregues'&&x.status==='entregue')||(active==='Em andamento'&&x.status==='em_andamento')||(active==='Em exploração'&&x.status==='exploracao');
+   const hay=[x.titulo,x.categoria,x.resumo,x.impacto,...(x.tags||[])].join(' ').toLowerCase();
+   return ok&&(!q||hay.includes(q));
+ }).sort((a,b)=>(b.destaque-a.destaque)||(b.publicarEm||'').localeCompare(a.publicarEm||''));
+ if(!list.length){grid.innerHTML='<div class="empty">Nenhuma iniciativa nesta visão.</div>';return}
+ grid.innerHTML=list.map(x=>`<article class="card ${x.destaque?'featured':''}">
+   <div>
+    <div class="topline"><span class="cat">${esc(x.categoria||'Iniciativa')}</span><span class="status ${esc(x.status)}">${esc(labels[x.status]||x.status)}</span></div>
+    <h3>${esc(x.titulo)}</h3><p>${esc(x.resumo)}</p>
+    <div class="impact"><b>Impacto esperado</b><p>${esc(x.impacto)}</p></div>
+    <div class="tags">${(x.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+   </div>
+   ${x.destaque?`<div class="visual"><div class="orb">${esc(x.icone||'✦')}</div></div>`:''}
+  </article>`).join('');
+}
+load();
+</script>
+</body>
+</html>

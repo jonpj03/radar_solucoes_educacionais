@@ -1,0 +1,75 @@
+{
+  "ultimaAtualizacao": "2026-09-25",
+  "configuracao": {
+    "titulo": "Radar de Soluções Educacionais",
+    "subtitulo": "Iniciativas, entregas e próximos movimentos que conectam tecnologia, educação e experiência.",
+    "equipe": "S.E",
+    "mensagem": "Uma visão simples do que estamos construindo e de como isso pode apoiar outras áreas."
+  },
+  "iniciativas": [
+    {
+      "id": "central-ferramentas",
+      "titulo": "Central de Ferramentas",
+      "categoria": "Experiência interna",
+      "resumo": "Um único ponto de acesso para reunir soluções e ferramentas da equipe.",
+      "impacto": "Reduz dispersão de links e facilita o acesso às soluções já disponíveis.",
+      "status": "entregue",
+      "publicarEm": "2026-09-01",
+      "destaque": true,
+      "icone": "↗",
+      "tags": [
+        "Acesso",
+        "Organização",
+        "Produtividade"
+      ]
+    },
+    {
+      "id": "opsboard",
+      "titulo": "OpsBoard",
+      "categoria": "Gestão e acompanhamento",
+      "resumo": "Visão consolidada de projetos, andamento, entregas e produtividade.",
+      "impacto": "Melhora a leitura do portfólio e apoia decisões com mais contexto.",
+      "status": "entregue",
+      "publicarEm": "2026-08-15",
+      "destaque": true,
+      "icone": "◫",
+      "tags": [
+        "Projetos",
+        "Visibilidade",
+        "Gestão"
+      ]
+    },
+    {
+      "id": "prova-facil",
+      "titulo": "Visão de Avaliações",
+      "categoria": "Dados e monitoramento",
+      "resumo": "Uma visão mais simples sobre agendamentos e realizações de avaliações.",
+      "impacto": "Pode apoiar o acompanhamento operacional e reduzir consultas manuais.",
+      "status": "em_andamento",
+      "publicarEm": "2026-09-20",
+      "destaque": false,
+      "icone": "◎",
+      "tags": [
+        "Avaliações",
+        "Dados",
+        "Automação"
+      ]
+    },
+    {
+      "id": "analytics-aprendizagem",
+      "titulo": "Leitura de Engajamento",
+      "categoria": "Experiência de aprendizagem",
+      "resumo": "Estudo de formas de visualizar como os conteúdos digitais são acessados.",
+      "impacto": "Pode apoiar decisões futuras sobre navegação, conteúdo e experiência do estudante.",
+      "status": "exploracao",
+      "publicarEm": "2026-10-05",
+      "destaque": false,
+      "icone": "⌁",
+      "tags": [
+        "Engajamento",
+        "Aprendizagem",
+        "Dados"
+      ]
+    }
+  ]
+}
